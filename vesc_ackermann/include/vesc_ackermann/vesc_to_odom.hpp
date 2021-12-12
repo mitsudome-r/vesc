@@ -31,6 +31,7 @@
 #ifndef VESC_ACKERMANN__VESC_TO_ODOM_HPP_
 #define VESC_ACKERMANN__VESC_TO_ODOM_HPP_
 
+#include <autoware_auto_vehicle_msgs/msg/vehicle_kinematic_state.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float64.hpp>
@@ -44,6 +45,7 @@ namespace vesc_ackermann
 {
 
 using nav_msgs::msg::Odometry;
+using autoware_auto_vehicle_msgs::msg::VehicleKinematicState;
 using std_msgs::msg::Float64;
 using vesc_msgs::msg::VescStateStamped;
 
@@ -71,6 +73,7 @@ private:
 
   // ROS services
   rclcpp::Publisher<Odometry>::SharedPtr odom_pub_;
+  rclcpp::Publisher<VehicleKinematicState>::SharedPtr vehicle_kinematic_state_pub_;
   rclcpp::Subscription<VescStateStamped>::SharedPtr vesc_state_sub_;
   rclcpp::Subscription<Float64>::SharedPtr servo_sub_;
   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_pub_;
