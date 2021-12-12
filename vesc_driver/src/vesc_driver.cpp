@@ -201,53 +201,54 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
       fw_version->hwname().c_str(),
       fw_version->paired()
     );
-  } else if (packet->name() == "ImuData") {
-    std::shared_ptr<VescPacketImu const> imuData =
-      std::dynamic_pointer_cast<VescPacketImu const>(packet);
-
-    auto imu_msg = VescImuStamped();
-    auto std_imu_msg = Imu();
-    imu_msg.header.stamp = now();
-    std_imu_msg.header.stamp = now();
-
-    imu_msg.imu.ypr.x = imuData->roll();
-    imu_msg.imu.ypr.y = imuData->pitch();
-    imu_msg.imu.ypr.z = imuData->yaw();
-
-    imu_msg.imu.linear_acceleration.x = imuData->acc_x();
-    imu_msg.imu.linear_acceleration.y = imuData->acc_y();
-    imu_msg.imu.linear_acceleration.z = imuData->acc_z();
-
-    imu_msg.imu.angular_velocity.x = imuData->gyr_x();
-    imu_msg.imu.angular_velocity.y = imuData->gyr_y();
-    imu_msg.imu.angular_velocity.z = imuData->gyr_z();
-
-    imu_msg.imu.compass.x = imuData->mag_x();
-    imu_msg.imu.compass.y = imuData->mag_y();
-    imu_msg.imu.compass.z = imuData->mag_z();
-
-    imu_msg.imu.orientation.w = imuData->q_w();
-    imu_msg.imu.orientation.x = imuData->q_x();
-    imu_msg.imu.orientation.y = imuData->q_y();
-    imu_msg.imu.orientation.z = imuData->q_z();
-
-    std_imu_msg.linear_acceleration.x = imuData->acc_x();
-    std_imu_msg.linear_acceleration.y = imuData->acc_y();
-    std_imu_msg.linear_acceleration.z = imuData->acc_z();
-
-    std_imu_msg.angular_velocity.x = imuData->gyr_x();
-    std_imu_msg.angular_velocity.y = imuData->gyr_y();
-    std_imu_msg.angular_velocity.z = imuData->gyr_z();
-
-    std_imu_msg.orientation.w = imuData->q_w();
-    std_imu_msg.orientation.x = imuData->q_x();
-    std_imu_msg.orientation.y = imuData->q_y();
-    std_imu_msg.orientation.z = imuData->q_z();
-
-
-    imu_pub_->publish(imu_msg);
-    imu_std_pub_->publish(std_imu_msg);
   }
+  // else if (packet->name() == "ImuData") {
+  //   std::shared_ptr<VescPacketImu const> imuData =
+  //     std::dynamic_pointer_cast<VescPacketImu const>(packet);
+
+  //   auto imu_msg = VescImuStamped();
+  //   auto std_imu_msg = Imu();
+  //   imu_msg.header.stamp = now();
+  //   std_imu_msg.header.stamp = now();
+
+  //   imu_msg.imu.ypr.x = imuData->roll();
+  //   imu_msg.imu.ypr.y = imuData->pitch();
+  //   imu_msg.imu.ypr.z = imuData->yaw();
+
+  //   imu_msg.imu.linear_acceleration.x = imuData->acc_x();
+  //   imu_msg.imu.linear_acceleration.y = imuData->acc_y();
+  //   imu_msg.imu.linear_acceleration.z = imuData->acc_z();
+
+  //   imu_msg.imu.angular_velocity.x = imuData->gyr_x();
+  //   imu_msg.imu.angular_velocity.y = imuData->gyr_y();
+  //   imu_msg.imu.angular_velocity.z = imuData->gyr_z();
+
+  //   imu_msg.imu.compass.x = imuData->mag_x();
+  //   imu_msg.imu.compass.y = imuData->mag_y();
+  //   imu_msg.imu.compass.z = imuData->mag_z();
+
+  //   imu_msg.imu.orientation.w = imuData->q_w();
+  //   imu_msg.imu.orientation.x = imuData->q_x();
+  //   imu_msg.imu.orientation.y = imuData->q_y();
+  //   imu_msg.imu.orientation.z = imuData->q_z();
+
+  //   std_imu_msg.linear_acceleration.x = imuData->acc_x();
+  //   std_imu_msg.linear_acceleration.y = imuData->acc_y();
+  //   std_imu_msg.linear_acceleration.z = imuData->acc_z();
+
+  //   std_imu_msg.angular_velocity.x = imuData->gyr_x();
+  //   std_imu_msg.angular_velocity.y = imuData->gyr_y();
+  //   std_imu_msg.angular_velocity.z = imuData->gyr_z();
+
+  //   std_imu_msg.orientation.w = imuData->q_w();
+  //   std_imu_msg.orientation.x = imuData->q_x();
+  //   std_imu_msg.orientation.y = imuData->q_y();
+  //   std_imu_msg.orientation.z = imuData->q_z();
+
+
+  //   imu_pub_->publish(imu_msg);
+  //   imu_std_pub_->publish(std_imu_msg);
+  // }
   auto & clk = *this->get_clock();
   RCLCPP_INFO_THROTTLE(
     get_logger(),
